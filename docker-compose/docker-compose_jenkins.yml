@@ -1,0 +1,45 @@
+version: '3.5'
+
+services:
+ 
+ 
+    
+  jenkins:
+    container_name: jenkins
+    image: denitiawan/jenkins-with-docker:1.0
+    environment:      
+    
+      # ENV for application will deployed
+      APP_PORT: 12345
+      APP_DB_HOST: 'host.docker.internal'
+      APP_DB_PORT: 3300
+      APP_DB_NAME: database
+      APP_DB_USER: user
+      APP_DB_PASSWORD: password
+           
+      
+    ports:      
+      - '9999:8080'
+    expose:      
+      - '9999'      
+    volumes:
+      - jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    
+    networks:
+      - network
+            
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5      
+           
+    
+  
+networks:  
+  network:    
+    driver: bridge
+
+volumes:     
+    jenkins:    
+     
+ 

@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+     
+  # RABBIT MQ
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+        - 5672:5672
+        - 15672:15672        
+    environment:
+        - RABBITMQ_DEFAULT_USER:guest
+        - RABBITMQ_DEFAULT_PASS:guest
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - network   
+        
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.5     
+    
+networks:
+  network:
+    driver: bridge    
